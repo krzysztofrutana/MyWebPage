@@ -1,0 +1,28 @@
+﻿<link rel="stylesheet" href="~/css/index.css" />
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="about">
+    <div class="container">
+        @{Html.RenderPartial("About");}
+    </div>
+
+</div>
+
+<div id="list">
+    <div class="container">
+        <div class="row">
+            @await Component.InvokeAsync("Projects")
+        </div>
+    </div>
+</div>
+
+<div id="contact">
+    <div class="container">
+        <div class="row">
+            @{Html.RenderPartial("Contact");}
+        </div>
+    </div>
+</div>

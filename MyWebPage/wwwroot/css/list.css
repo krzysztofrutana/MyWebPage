@@ -1,0 +1,25 @@
+﻿.row_project {
+    height: auto;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: white;
+    opacity: 0;
+}
+
+    .row_project.animate__animated {
+        opacity:1;
+    }
+
+#row_project_buttons {
+    margin-top: 30px;
+}
+
+#row_project_name {
+    margin-bottom: 20px;
+}
+
+img {
+    height: 150px;
+}

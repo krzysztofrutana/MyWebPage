@@ -1,0 +1,83 @@
+﻿@model IEnumerable<MyWebPage.Models.Project>
+
+<link rel="stylesheet" href="~/css/list.css" />
+
+@{
+    ViewData["Title"] = "Projects";
+    Layout = null;
+}
+
+
+@{ Boolean side = false;
+    int i = 0;}
+@foreach (Project project in Model)
+{
+    @if (side)
+    {
+        <div class="row align-items-center row_project box-shadow" id="row_project_@i">
+            <div class="col-4">
+                <img src="@Url.Content(project.LogoPath)" alt="@project.Name" style="height: 150px;" class="d-block mx-auto">
+            </div>
+
+            <div class="col">
+                <div class="row" id="row_project_name">
+                    <a href="">
+                        <h2 style="margin-bottom: 25px;">@project.Name</h2>
+                    </a>
+                </div>
+                <div class="row">
+                    <p class="text-justify">@project.ShortDiscriptionPL</p>
+                </div>
+                <div class="row ml-auto" id="row_project_buttons">
+                    <div class="col text-right">
+                        <a href="#div_project_@i" class="btn btn-light" data-toggle="collapse">Szczegóły</a>
+                        <button type="button" class="btn btn-dark">Pobierz ostatnią wersję</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="div_project_@i" class="collapse">
+                    @await Component.InvokeAsync("Detail", project)
+                </div>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div class="row align-items-center row_project box-shadow" id="row_project_@i">
+            <div class="col">
+                <div class="row" id="row_project_name">
+                    <a href="">
+                        <h2 style="margin-bottom: 25px;">@project.Name</h2>
+                    </a>
+                </div>
+
+                <div class="row">
+                    <p class="text-justify">@project.ShortDiscriptionPL</p>
+                </div>
+                <div class="row  ml-auto" id="row_project_buttons">
+                    <div class="col text-right">
+                        <a href="#div_project_@i" class="btn btn-light" data-toggle="collapse">Szczegóły</a>
+                        <button type="button" class="btn btn-dark">Pobierz ostatnią wersję</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <img src="@Url.Content(project.LogoPath)" alt="@project.Name" style="height: 150px;" class="d-block mx-auto">
+            </div>
+        </div>
+        <div class="row">
+            <div id="div_project_@i" class="collapse">
+                @await Component.InvokeAsync("Detail", project)
+            </div>
+        </div>
+    }
+    i++;
+    side = !side;
+}
+
+

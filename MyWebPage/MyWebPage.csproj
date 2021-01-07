@@ -1,0 +1,83 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>412e265c-7686-4cd6-936b-81307fa592ff</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Content\Projects\OCR_read_and_translate\Main-Window.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Content\Projects\OCR_read_and_translate\Main-Window.jpg" />
+    <None Include="wwwroot\lib\waypoints\.eslintrc" />
+    <None Include="wwwroot\lib\waypoints\.gitignore" />
+    <None Include="wwwroot\lib\waypoints\.travis.yml" />
+    <None Include="wwwroot\lib\waypoints\CHANGELOG.md" />
+    <None Include="wwwroot\lib\waypoints\CONTRIBUTING.md" />
+    <None Include="wwwroot\lib\waypoints\gulpfile.js" />
+    <None Include="wwwroot\lib\waypoints\lib\jquery.waypoints.js" />
+    <None Include="wwwroot\lib\waypoints\lib\jquery.waypoints.min.js" />
+    <None Include="wwwroot\lib\waypoints\lib\noframework.waypoints.js" />
+    <None Include="wwwroot\lib\waypoints\lib\noframework.waypoints.min.js" />
+    <None Include="wwwroot\lib\waypoints\lib\shortcuts\infinite.js" />
+    <None Include="wwwroot\lib\waypoints\lib\shortcuts\infinite.min.js" />
+    <None Include="wwwroot\lib\waypoints\lib\shortcuts\inview.js" />
+    <None Include="wwwroot\lib\waypoints\lib\shortcuts\inview.min.js" />
+    <None Include="wwwroot\lib\waypoints\lib\shortcuts\sticky.js" />
+    <None Include="wwwroot\lib\waypoints\lib\shortcuts\sticky.min.js" />
+    <None Include="wwwroot\lib\waypoints\lib\waypoints.debug.js" />
+    <None Include="wwwroot\lib\waypoints\lib\zepto.waypoints.js" />
+    <None Include="wwwroot\lib\waypoints\lib\zepto.waypoints.min.js" />
+    <None Include="wwwroot\lib\waypoints\README.md" />
+    <None Include="wwwroot\lib\waypoints\src\adapters\jquery-zepto-fn-extension.js" />
+    <None Include="wwwroot\lib\waypoints\src\adapters\jquery.js" />
+    <None Include="wwwroot\lib\waypoints\src\adapters\noframework.js" />
+    <None Include="wwwroot\lib\waypoints\src\adapters\zepto.js" />
+    <None Include="wwwroot\lib\waypoints\src\context.js" />
+    <None Include="wwwroot\lib\waypoints\src\debug.js" />
+    <None Include="wwwroot\lib\waypoints\src\group.js" />
+    <None Include="wwwroot\lib\waypoints\src\shortcuts\infinite.js" />
+    <None Include="wwwroot\lib\waypoints\src\shortcuts\inview.js" />
+    <None Include="wwwroot\lib\waypoints\src\shortcuts\sticky.js" />
+    <None Include="wwwroot\lib\waypoints\src\waypoint.js" />
+    <None Include="wwwroot\lib\waypoints\test\adapter-fn-spec.js" />
+    <None Include="wwwroot\lib\waypoints\test\context-spec.js" />
+    <None Include="wwwroot\lib\waypoints\test\debug-spec.js" />
+    <None Include="wwwroot\lib\waypoints\test\group-spec.js" />
+    <None Include="wwwroot\lib\waypoints\test\infinite-spec.js" />
+    <None Include="wwwroot\lib\waypoints\test\inview-spec.js" />
+    <None Include="wwwroot\lib\waypoints\test\lib\coffee-script.js" />
+    <None Include="wwwroot\lib\waypoints\test\lib\jasmine-html.js" />
+    <None Include="wwwroot\lib\waypoints\test\lib\jasmine-jquery.js" />
+    <None Include="wwwroot\lib\waypoints\test\lib\jasmine.js" />
+    <None Include="wwwroot\lib\waypoints\test\lib\require.js" />
+    <None Include="wwwroot\lib\waypoints\test\lib\testloader.js" />
+    <None Include="wwwroot\lib\waypoints\test\settings.js" />
+    <None Include="wwwroot\lib\waypoints\test\sticky-spec.js" />
+    <None Include="wwwroot\lib\waypoints\test\waypoint-spec.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Projects\" />
+    <Folder Include="wwwroot\Content\Projects\Diploma_program\" />
+  </ItemGroup>
+
+</Project>

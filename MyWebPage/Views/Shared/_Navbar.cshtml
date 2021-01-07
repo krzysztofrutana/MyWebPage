@@ -1,0 +1,27 @@
+﻿<nav class="navbar  navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow" style="background-color: #929292;">
+    <div class="container">
+        <div class="text-left">
+            @if (ViewData["ProjectName"] != null)
+            {
+                <h3>@ViewData["ProjectName"]</h3>
+            }
+
+        </div>
+        <button type="button" class="navbar-toggler ml-auto" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div  id="main-nav" class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#about" data-id="about">O mnie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#list" data-id="list">Projekty</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light"  href="#contact" data-id="contact">Kontakt</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
