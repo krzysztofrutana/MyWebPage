@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyWebPage.Models;
-
+using System;
 
 namespace MyWebPage.Data
 {
@@ -23,7 +23,6 @@ namespace MyWebPage.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
             modelBuilder.Entity<Project>().ToTable("Project");
         }
     }

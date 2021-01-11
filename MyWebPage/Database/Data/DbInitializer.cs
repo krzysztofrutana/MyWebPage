@@ -28,7 +28,7 @@ namespace MyWebPage.Data
                 DiscriptionPL = "Opis po polsku",
                 DiscriptionENG = "Opis po angielsku",
                 Technologies = "Technologie",
-                ImagesPath = new List<string>()
+                ScreenshotPaths = new List<string>()
                 {
                     "Pierwsze zdjęcie",
                     "Drugie zdjęcie"
@@ -44,7 +44,8 @@ namespace MyWebPage.Data
                 DiscriptionPL = "Opis po polsku",
                 DiscriptionENG = "Opis po angielsku",
                 Technologies = "Technologie",
-                ImagesPath = new List<string>()
+                FilePath = "Files\\CV.docx",
+                ScreenshotPaths = new List<string>()
                 {
                     "~/Content/Projects/OCR_read_and_translate/Main-Window.jpg",
                      "~/Content/Projects/OCR_read_and_translate/Main-Window-PDF.jpg",
@@ -61,7 +62,7 @@ namespace MyWebPage.Data
                 DiscriptionPL = "Opis po polsku",
                 DiscriptionENG = "Opis po angielsku",
                 Technologies = "Technologie",
-                ImagesPath = new List<string>()
+                ScreenshotPaths = new List<string>()
                 {
                     "Pierwsze zdjęcie",
                     "Drugie zdjęcie"
@@ -79,7 +80,7 @@ namespace MyWebPage.Data
                 DiscriptionPL = "Opis po polsku",
                 DiscriptionENG = "Opis po angielsku",
                 Technologies = "Technologie",
-                ImagesPath = new List<string>()
+                ScreenshotPaths = new List<string>()
                 {
                     "Pierwsze zdjęcie",
                     "Drugie zdjęcie"
