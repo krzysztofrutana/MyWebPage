@@ -36,12 +36,10 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div id="div_project_@i" class="collapse">
+        <div class="row w-100">
+                <div id="div_project_@i" class="collapse w-100">
                     @await Component.InvokeAsync("Detail", project)
                 </div>
-            </div>
         </div>
 
     }
@@ -70,8 +68,8 @@
                 <img src="@Url.Content(project.LogoPath)" alt="@project.Name" style="height: 150px;" class="d-block mx-auto">
             </div>
         </div>
-        <div class="row">
-            <div id="div_project_@i" class="collapse">
+        <div class="row w-100">
+            <div id="div_project_@i" class="collapse w-100">
                 @await Component.InvokeAsync("Detail", project)
             </div>
         </div>

@@ -1,7 +1,59 @@
-﻿@model MyWebPage.Models.Project
+﻿<link rel="stylesheet" href="~/css/detail.css" />
+
+@model MyWebPage.Models.Project
 
 @{
+    ViewData["Title"] = Model.Name;
     Layout = null;
 }
 
-jkoahdjkashdsajkdhaskdh
+<div class="container-fluid " id="project_detail_page">
+    <div class="row align-items-center row_project_detail_1">
+        <div class="col-4 align-items-center" id="project_details">
+            <dl>
+                <dt><h5>Technologie:</h5></dt>
+                <dd>@Model.Technologies</dd>
+                <dt><h5>Licencja:</h5></dt>
+                <dd>Darmowa</dd>
+                <dt><h5>Link do źródeł:</h5></dt>
+                <dd>asdasd</dd>
+                <dt><h5>Platforma:</h5></dt>
+                <dd>asdasdas</dd>
+                <dt><h5>Link do pobrania:</h5></dt>
+                <dd><a asp-controller="Projects" asp-action="Get" asp-route-filePath="@Model.FilePath"> @Model.FilePath </a> </dd>
+            </dl>
+        </div>
+        <div class="col-8">
+            <div id="gallery_@Model.Id" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    @{int i = 0;}
+                    @foreach (String imagePath in Model.ScreenshotPaths)
+                    {
+                        <li data-target="#gallery_@Model.Id" data-slide-to="@i" class="@(i == 0 ? "active" : "") "></li>
+                        i++;
+                    }
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    @{ int j = 0;}
+                    @foreach (String imagePath in Model.ScreenshotPaths)
+                    {
+                        <div class="carousel-item @(j == 0 ? "active" : "")">
+                            <img class="d-block img-fluid" src="@Url.Content(@imagePath)">
+                        </div>
+                        j++;
+                    }
+                </div>
+
+                <!-- Controls -->
+                <a class="carousel-control-prev" href="#gallery_@Model.Id" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </a>
+                <a class="carousel-control-next" href="#gallery_@Model.Id" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
