@@ -14,14 +14,21 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using MyWebPage.Repositories.Interfaces;
 using MyWebPage.Repositories;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
+using MyWebPage.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using MyWebPage.Models;
 
 namespace MyWebPage
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -32,10 +39,9 @@ namespace MyWebPage
             services.AddDbContext<ProjectsDatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<IProjectRepository, ProjectRepository>(); 
-        
-
-
+            services.AddTransient<IProjectRepository, ProjectRepository>();
+            services.AddTransient<IEmailSender, SendMail>();
+            services.AddTransient<FileService>();
             services.AddControllersWithViews();
         }
 
@@ -63,7 +69,7 @@ namespace MyWebPage
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}");
             });
         }
     }

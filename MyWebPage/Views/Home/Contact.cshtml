@@ -1,7 +1,35 @@
-﻿
+﻿@model ContactViewModel;
 @{
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "Kontakt";
+
 }
 
-<h1>Contact</h1>
+<div class="col align-content-center" id="contact_form">
+    <form asp-controller="Home" asp-action="SendMail">
+        <div class="form-group">
+            <label asp-for="Email">Adres email:</label>
+            <input asp-for="Email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Wpisz adres e-mail">
+            <small id="emailHelp" class="form-text text-muted">Adres e-mail nie będzie nigdzie udostępniany.</small>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Name">Imię:</label>
+            <input asp-for="Name" type="text" class="form-control" aria-describedby="nameHelp" placeholder="Podaj swoje imię">
+            <small id="nameHelp" class="form-text text-muted">Do łatwiejszej komunikacji.</small>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Subject">Temat:</label>
+            <input asp-for="Subject" type="text" class="form-control" placeholder="Podaj temat">
+            <span asp-validation-for="Subject" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Message">Wiadomość:</label>
+            <input asp-for="Message" type="text" class="form-control" placeholder="Treść wiadomości">
+            <span asp-validation-for="Message" class="text-danger"></span>
+        </div>
+        <input type="submit" value="Wyślij" class="btn btn-primary" />
+    </form>
+
+</div>
 
