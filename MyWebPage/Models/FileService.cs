@@ -25,12 +25,20 @@ namespace MyWebPage.Services
             {
                 string wwwPath = _environment.WebRootPath;
                 string fullPath = Path.Combine(wwwPath, filePath);
+                if (File.Exists(fullPath))
+                {
+                    var stream = _environment.WebRootFileProvider
+                                                    .GetFileInfo(filePath)
+                                                    .CreateReadStream();
 
-                var stream = _environment.WebRootFileProvider
-                                .GetFileInfo(filePath)
-                                .CreateReadStream();
+                    return new FileStreamResult(stream, MimeTypeMap.GetMimeType(fullPath)) { FileDownloadName = Path.GetFileName(filePath) };
+                }
+                else
+                {
+                    return null;
+                }
 
-                return new FileStreamResult(stream, MimeTypeMap.GetMimeType(fullPath)) { FileDownloadName = Path.GetFileName(filePath)};
+                
             }
             catch (FileNotFoundException e)
             {

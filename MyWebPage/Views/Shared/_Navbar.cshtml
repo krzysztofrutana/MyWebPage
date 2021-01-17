@@ -1,26 +1,59 @@
-﻿<nav class="navbar  navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow" style="background-color: #929292;">
+﻿
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    var requestCulture = CultureInfo.CurrentCulture;
+    var regionInfo = new RegionInfo(requestCulture.Name);
+
+}
+<nav class="navbar  navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow">
     <div class="container">
         <div class="text-left">
-            @if (ViewData["ProjectName"] != null)
-            {
-                <h3>@ViewData["ProjectName"]</h3>
-            }
-
+            <img src="~/Content/Navbar/logo.png" class="img-fluid" style="height:50px;" />
         </div>
         <button type="button" class="navbar-toggler ml-auto" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div  id="main-nav" class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <div id="main-nav" class="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="#about" data-id="about">O mnie</a>
+                    <a class="nav-link text-light" href="#about" data-id="about">@Localizer["navbar_about_me"]</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="#list" data-id="list">Projekty</a>
+                    <a class="nav-link text-light" href="#list" data-id="list">@Localizer["navbar_projects"]</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light"  href="#contact" data-id="contact">Kontakt</a>
+                    <a class="nav-link text-light" href="#contact" data-id="contact">@Localizer["navbar_contact"]</a>
                 </li>
+                <li class="nav-item dropdown">
+
+                    @if (@regionInfo.TwoLetterISORegionName == "US")
+                    {
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @Localizer["navbar_language"]: EN
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-sm-left" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="nav-link text-dark ml-2" asp-action="ChangeCulture" asp-controller="Home" asp-route-language="pl-PL">PL</a>
+                            <a class="nav-link text-dark ml-2" asp-action="ChangeCulture" asp-controller="Home" asp-route-language="en-US">EN</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="nav-link dropdown-toggle dropdown-menu-sm-left" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @Localizer["navbar_language"]: @regionInfo.TwoLetterISORegionName
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="nav-link text-dark ml-2" asp-action="ChangeCulture" asp-controller="Home" asp-route-language="pl-PL">PL</a>
+                            <a class="nav-link text-dark ml-2" asp-action="ChangeCulture" asp-controller="Home" asp-route-language="en-US">EN</a>
+                        </div>
+                    }
+
+
+                </li>
+
             </ul>
         </div>
     </div>

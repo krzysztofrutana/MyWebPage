@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyWebPage.Models;
 using MyWebPage.Repositories.Interfaces;
+using System.Globalization;
 
 namespace MyWebPage.Repositories
 {
@@ -32,8 +33,18 @@ namespace MyWebPage.Repositories
                 return null;
             }
 
-            var project = await _context.Projects
-                .FirstOrDefaultAsync(m => m.Name == name);
+            Project project;
+            var requestCulture = CultureInfo.CurrentCulture;
+            var regionInfo = new RegionInfo(requestCulture.Name);
+            if (regionInfo.TwoLetterISORegionName.Equals("PL")){
+                project = await _context.Projects
+                .FirstOrDefaultAsync(m => m.NamePL == name);
+            }
+            else
+            {
+                project = await _context.Projects
+                .FirstOrDefaultAsync(m => m.NameENG == name);
+            }
             if (project == null)
             {
                 return null;

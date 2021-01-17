@@ -11,8 +11,10 @@ namespace MyWebPage.Models
     {
         [Key]
         public int Id { get; set; }
-        [Column("Name")]
-        public String Name { get; set; }
+        [Column("NamePL")]
+        public String NamePL { get; set; }
+        [Column("NameENG")]
+        public String NameENG { get; set; }
         [Column("LogoPath")]
         public String LogoPath { get; set; }
         [Column("ShortDiscriptionPL")]
@@ -25,10 +27,18 @@ namespace MyWebPage.Models
         public String DiscriptionENG { get; set; }
         [Column("Technologies")]
         public String Technologies { get; set; }
+        [Column("License")]
+        public String License { get; set; }
+        [Column("SourceLink")]
+        public String SourceLink { get; set; }
+        [Column("Platform")]
+        public String Platform { get; set; }
         [Column("FilePath")]
         public String FilePath { get; set; }
         [Column("Screenshot")]
         public String Screenshot { get; set; }
+        [Column("ItsWebPage")]
+        public Boolean ItsWebPage { get; set; }
 
         [NotMapped]
         public List<String> ScreenshotPaths
