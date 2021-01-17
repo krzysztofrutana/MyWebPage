@@ -1,35 +1,195 @@
-﻿@model ContactViewModel;
-@{
-    ViewData["Title"] = "Kontakt";
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Globalization;
 
+@inject IViewLocalizer Localizer
+@inject Wangkanai.Detection.Services.IDetectionService DetectionService
+
+@model ContactViewModel;
+
+@{
+    var requestCulture = CultureInfo.CurrentCulture;
+    var regionInfo = new RegionInfo(requestCulture.Name);
 }
 
-<div class="col align-content-center" id="contact_form">
-    <form asp-controller="Home" asp-action="SendMail">
-        <div class="form-group">
-            <label asp-for="Email">Adres email:</label>
-            <input asp-for="Email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Wpisz adres e-mail">
-            <small id="emailHelp" class="form-text text-muted">Adres e-mail nie będzie nigdzie udostępniany.</small>
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Name">Imię:</label>
-            <input asp-for="Name" type="text" class="form-control" aria-describedby="nameHelp" placeholder="Podaj swoje imię">
-            <small id="nameHelp" class="form-text text-muted">Do łatwiejszej komunikacji.</small>
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Subject">Temat:</label>
-            <input asp-for="Subject" type="text" class="form-control" placeholder="Podaj temat">
-            <span asp-validation-for="Subject" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Message">Wiadomość:</label>
-            <input asp-for="Message" type="text" class="form-control" placeholder="Treść wiadomości">
-            <span asp-validation-for="Message" class="text-danger"></span>
-        </div>
-        <input type="submit" value="Wyślij" class="btn btn-primary" />
-    </form>
+<link rel="stylesheet" href="~/css/contact.css" />
 
+@if (DetectionService.Device.Type != Wangkanai.Detection.Models.Device.Desktop)
+{
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" id="section_title">
+            <h1 class="text-white display-3 text-center title">@Localizer["contact_title"]</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="modal fade" id="sendMailModal" tabindex="-1" aria-labelledby="sendMailModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="sendMailModalLabel">@Localizer["modal_header"]</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form asp-controller="Contact" asp-action="SendMail" id="contact_form">
+                            <div class="form-group">
+                                <label asp-for="Email">@Localizer["modal_email_title"]</label>
+                                <input asp-for="Email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="@Localizer["modal_email_placeholder"]">
+                                <small id="emailHelp" class="form-text text-muted">@Localizer["modal_email_described"]</small>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Name">@Localizer["modal_name_title"]</label>
+                                <input asp-for="Name" type="text" class="form-control" aria-describedby="nameHelp" placeholder="@Localizer["modal_name_placeholder"]">
+                                <small id="nameHelp" class="form-text text-muted">@Localizer["modal_name_described"]</small>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Subject">@Localizer["modal_subject_title"]</label>
+                                <input asp-for="Subject" type="text" class="form-control" placeholder="@Localizer["modal_subject_placeholder"]">
+                                <span asp-validation-for="Subject" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Message">@Localizer["modal_message_title"]</label>
+                                <input asp-for="Message" type="text" class="form-control" placeholder="@Localizer["modal_message_placeholder"]">
+                                <span asp-validation-for="Message" class="text-danger"></span>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer["modal_button_cancel"]</button>
+                        <input type="submit" value="@Localizer["modal_button_submit"]" form="contact_form" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col mx-auto">
+            <div class="talkbubble_mobile mx-auto" style="@(regionInfo.TwoLetterISORegionName.Equals("PL") ? "width: 250px" : "width:300px;")">
+                <p>@Localizer["talkbubble_text"]</p>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col mx-auto">
+            <div class="talkbubble_mobile_arrow mx-auto mb-3"></div>
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sendMailModal" id="button_send_mail">@Localizer["button_send_message"]</button>
+        </div>
+    </div>
+
+    <div class="row align-items-center">
+        <div class="col" id="social_links_text">
+            <h2 class="text-center">@Localizer["social_links_text"]</h2>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col social_buttons-links text-center">
+            <ul>
+                <li>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/krzysiek.rutana"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/krzysztof-rutana-0551851bb/"><i class="fa fa-linkedin"></i></a>
+                </li>
+                <li>
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/krzysztofrutana"><i class="fa fa-github"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
+}
+else
+{
+<div class="container-fluid">
+    <div class="row">
+        <div class="col" id="section_title">
+            <h1 class="text-white display-1 text-center title">@Localizer["contact_title"]</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="modal fade" id="sendMailModal" tabindex="-1" aria-labelledby="sendMailModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="sendMailModalLabel">@Localizer["modal_header"]</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form asp-controller="Contact" asp-action="SendMail" id="contact_form">
+                            <div class="form-group">
+                                <label asp-for="Email">@Localizer["modal_email_title"]</label>
+                                <input asp-for="Email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="@Localizer["modal_email_placeholder"]">
+                                <small id="emailHelp" class="form-text text-muted">@Localizer["modal_email_described"]</small>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Name">@Localizer["modal_name_title"]</label>
+                                <input asp-for="Name" type="text" class="form-control" aria-describedby="nameHelp" placeholder="@Localizer["modal_name_placeholder"]">
+                                <small id="nameHelp" class="form-text text-muted">@Localizer["modal_name_described"]</small>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Subject">@Localizer["modal_subject_title"]</label>
+                                <input asp-for="Subject" type="text" class="form-control" placeholder="@Localizer["modal_subject_placeholder"]">
+                                <span asp-validation-for="Subject" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Message">@Localizer["modal_message_title"]</label>
+                                <input asp-for="Message" type="text" class="form-control" placeholder="@Localizer["modal_message_placeholder"]">
+                                <span asp-validation-for="Message" class="text-danger"></span>
+                            </div>
 
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@Localizer["modal_button_cancel"]</button>
+                        <input type="submit" value="@Localizer["modal_button_submit"]" form="contact_form" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col text-center ml-12" style="justify-content: right;">
+            <div class="talkbubble" style="@(regionInfo.TwoLetterISORegionName.Equals("PL") ? "width: 300px" : "width:400px;")">
+                <p class="mt-auto">@Localizer["talkbubble_text"]</p>
+            </div>
+        </div>
+        <div class="col text-left m-0">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sendMailModal" id="button_send_mail">@Localizer["button_send_message"]</button>
+        </div>
+    </div>
+
+    <div class="row align-items-center">
+        <div class="col" id="social_links_text">
+            <h2 class="text-center">@Localizer["social_links_text"]</h2>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col social_buttons-links text-center">
+            <ul>
+                <li>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/krzysiek.rutana"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/krzysztof-rutana-0551851bb/"><i class="fa fa-linkedin"></i></a>
+                </li>
+                <li>
+                    <a target="_blank" rel="noopener noreferrer" href="https://github.com/krzysztofrutana"><i class="fa fa-github"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+}

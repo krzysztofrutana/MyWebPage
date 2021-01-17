@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Extensions.Configuration;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
@@ -9,24 +7,29 @@ namespace MyWebPage.Models
 {
     public class SendMail : IEmailSender
     {
+        private readonly IConfiguration _config;
+        public SendMail(IConfiguration config)
+        {
+            _config = config;
+        }
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             using(MailMessage mailMessage = new MailMessage())
             {
-                mailMessage.From = new MailAddress("test@testkrutanapersonal.cba.pl");
+                mailMessage.From = new MailAddress(_config.GetValue<string>("Email:EmailAdress"));
                 mailMessage.Subject = subject;
                 mailMessage.Body = htmlMessage;
                 mailMessage.IsBodyHtml = true;
-                mailMessage.To.Add(new MailAddress("krzysztofrutana@wp.pl"));
+                mailMessage.To.Add(new MailAddress(_config.GetValue<string>("Email:OnAdress")));
                 SmtpClient smtp = new SmtpClient();
-                smtp.Host = "mail.cba.pl";
+                smtp.Host = _config.GetValue<string>("Email:Host");
                 smtp.EnableSsl = true;
                 System.Net.NetworkCredential networkCredential = new System.Net.NetworkCredential();
-                networkCredential.UserName = "test@testkrutanapersonal.cba.pl";
-                networkCredential.Password = "Unreal123";
+                networkCredential.UserName = _config.GetValue<string>("Email:EmailAdress");
+                networkCredential.Password = _config.GetValue<string>("Email:AgentPassword");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = networkCredential;
-                smtp.Port = 587;
+                smtp.Port = int.Parse(_config.GetValue<string>("Email:Port"));
                 await smtp.SendMailAsync(mailMessage);
             }
         }
