@@ -8,17 +8,48 @@
 }
 
     .row_project.animate__animated {
-        opacity:1;
+        opacity: 1;
     }
 
-#row_project_buttons {
+.mobile {
+    margin-left:20px;
+    margin-right:20px;
+    padding-bottom:0;
+}
+.row_project_buttons {
     margin-top: 30px;
 }
 
-#row_project_name {
+.project_button {
+    margin-top:10px;
+}
+
+.row_project_buttons_mobile{
+    margin-top:10px;
+    margin-bottom:20px;
+}
+.row_project_name {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+    .row_project_name h2 {
+        margin-bottom: 25px;
+    }
+
+.project_logo_mobile {
+    margin-bottom:20px;
+}
+
+.project_detail_list_show {
+    margin-right: 30px;
+    background-color: snow;
+    padding: 15px;
     margin-bottom: 20px;
 }
 
-img {
-    height: 150px;
+.project_detail_list_show_mobile{
+
+    margin:0;
+    padding:0;
 }

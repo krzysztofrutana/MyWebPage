@@ -1,32 +1,53 @@
-﻿<link rel="stylesheet" href="~/css/index.css" />
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@inject Wangkanai.Detection.Services.IDetectionService DetectionService
+
+<link rel="stylesheet" href="~/css/index.css" />
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="about">
-    <div class="container">
-        @{Html.RenderPartial("About");}
+@if (DetectionService.Device.Type != Wangkanai.Detection.Models.Device.Desktop)
+{
+    <div id="about_mobile">
+        <div class="container w-100">
+            @{Html.RenderPartial("About");}
+        </div>
     </div>
 
-</div>
-
-<div id="list">
-    <div class="container">
-        <div class="row">
+    <div id="list_mobile">
+        <div class="container w-100">
             @await Component.InvokeAsync("Projects")
         </div>
     </div>
-</div>
 
-<div id="contact">
-    <div class="container">
-        <div class="row">
+    <div id="contact_mobile">
+        <div class="container w-100">
             @{Html.RenderPartial("Contact");}
         </div>
     </div>
-</div>
+}
+else
+{
+    <div id="about">
+        <div class="container w-100">
+            @{Html.RenderPartial("About");}
+        </div>
+    </div>
 
+    <div id="list">
+        <div class="container w-100">
+            @await Component.InvokeAsync("Projects")
+        </div>
+    </div>
+
+    <div id="contact">
+        <div class="container w-100">
+            @{Html.RenderPartial("Contact");}
+        </div>
+    </div>
+}
 @{
     string message = TempData["ConfirmMsg"] as string;
     if (!String.IsNullOrEmpty(message))
@@ -35,16 +56,16 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabel">Wiadomość wysłana</h5>
+                        <h5 class="modal-title" id="modalLabel">@Localizer["message_sent"]</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        @TempData["ConfirmMsg"]
+                        @Localizer["confirm_message"]
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
                     </div>
                 </div>
             </div>
@@ -54,5 +75,6 @@
                 $('#email_sended_succes').modal('show')
             </script>
         }
+        TempData.Remove("ConfirmMsg");
     }
 }

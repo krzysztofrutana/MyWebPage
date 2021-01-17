@@ -1,24 +1,53 @@
 ﻿#about {
     width: 100vw;
     max-width: 100%;
-    padding:0;
+    padding-top: 30px;
     margin-left: 0;
     margin-right: 0;
+    background-image: linear-gradient(to right, #945D5E, #DBC1BD);
 }
 
 #list {
     width: 100vw;
     max-width: 100%;
-    padding: 0;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    background-image: linear-gradient(to right, #88B2D3, #3F7CAC);
 }
 
 #contact {
     width: 100vw;
     max-width: 100%;
-    padding: 0;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    height: auto;
+    background-image: linear-gradient(to right, #945D5E, #DBC1BD);
+}
+
+#about_mobile {
+    width: 100vw;
+    max-width: 100%;
+    padding-top: 30px;
     margin-left: 0;
     margin-right: 0;
-    height:500px;
+    background-color: #945D5E;
+}
+
+#list_mobile {
+    width: 100vw;
+    max-width: 100%;
+    margin: 0;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    background-image: linear-gradient(to bottom right, #88B2D3, #3F7CAC);
+}
+
+#contact_mobile {
+    width: 100vw;
+    max-width: 100%;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    height: auto;
+    background-color: #945D5E;
 }

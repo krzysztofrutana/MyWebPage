@@ -1,32 +1,72 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/favicon.ico")" />
+    <link rel="icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon" />
     <title>Krzysztof Rutana Personal</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-lux.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
 
 </head>
-<body>
-    <header>
-        @{Html.RenderPartial("_Navbar"); }
-    </header>
-    <div class="container-fluid">
+@inject Wangkanai.Detection.Services.IDetectionService DetectionService
+
+@if (DetectionService.Device.Type != Wangkanai.Detection.Models.Device.Desktop)
+{
+    <body style="overflow-x: hidden !important;">
+        <header>
+            @{Html.RenderPartialAsync("_Navbar"); }
+        </header>
+
+        <div class="container w-100 p-0" style="max-width: 100% !important;
+        overflow-x: hidden !important;">
             @RenderBody()
-    </div>
-    @{Html.RenderPartial("_Footer"); }
+        </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/waypoints/lib/noframework.waypoints.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+        @{Html.RenderPartialAsync("_Footer"); }
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/lib/waypoints/lib/noframework.waypoints.min.js"></script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
 
 
-    @RenderSection("Scripts", required: false)
+        @RenderSection("Scripts", required: false)
 
 
-</body>
+    </body>
+}
+else
+{
+    <body>
+        <header>
+            @{Html.RenderPartialAsync("_Navbar"); }
+        </header>
+
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+
+        @{Html.RenderPartialAsync("_Footer"); }
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/lib/waypoints/lib/noframework.waypoints.min.js"></script>
+        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+
+        @RenderSection("Scripts", required: false)
+
+
+    </body>
+}
 </html>

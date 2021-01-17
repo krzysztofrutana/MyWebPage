@@ -1,18 +1,104 @@
-﻿<link rel="stylesheet" href="~/css/about.css" />
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Globalization;
+
+@inject IViewLocalizer Localizer
+@inject Wangkanai.Detection.Services.IDetectionService DetectionService
+
+<link rel="stylesheet" href="~/css/about.css" />
 @{
     ViewData["Title"] = "O mnie";
+    var requestCulture = CultureInfo.CurrentCulture;
+    var regionInfo = new RegionInfo(requestCulture.Name);
 }
 
+@if (DetectionService.Device.Type != Wangkanai.Detection.Models.Device.Desktop)
+{
+    <div class="row">
+        <div class="col">
+            <h1 class="text-white display-3 text-center title">@Localizer["about_title"]</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mb-0 pb-0" id="about_image_mobile">
+            <img src="~/Content/About/Images/ja.png" class="d-block img-fluid" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" style="background-color:rgba(0,0,0,0.4);">
+            <p class="m-4 about_text_mobile" lang=@(regionInfo.TwoLetterISORegionName.Equals("PL") ? "pl" : "en")>
+                @Localizer["about_text"]
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col w-100"  style="background-color:rgba(0,0,0,0.4);">
+            <div class="d-flex justify-content-center align-items-center container-fluid w-100 mb-3">
+                <form method="get" class="form-inline" asp-controller="Home" asp-action="GetCV">
+                    <div class="form-row align-items-center">
+                        <label class=" h6 text-nowrap mr-3 mt-1">@Localizer["about_CV_language"]</label>
+                        @if (@regionInfo.TwoLetterISORegionName == "US")
+                        {
+                            <select name="language" class="form-control form-control-sm" style="width:65px;">
+                                <option>EN</option>
+                                <option>PL</option>
+                            </select>
+                        }
+                        else
+                        {
+                            <select name="language" class="form-control form-control-sm" style="width:60px;">
+                                <option>PL</option>
+                                <option>EN</option>
+                            </select>
+                        }
+                        <button type="submit" class="btn btn-dark ml-1" style="transform:scale(0.75, 0.75);">@Localizer["about_button_download"]</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col">
+            <h1 class="text-white display-1 text-center title">@Localizer["about_title"]</h1>
+        </div>
+    </div>
+    <div id="about_text_row" class="row align-items-center">
+        <div id="about_text_col" class="col">
+            <div class="row">
+                <p class="text-justify text-white" lang=@(regionInfo.TwoLetterISORegionName.Equals("PL") ? "pl" : "en")>
+                    @Localizer["about_text"]
+                </p>
+            </div>
+            <div class="row">
+                <form method="get" class="form-inline w-100" asp-controller="Home" asp-action="GetCV">
+                    <div class="form-group row">
+                        <label for="staticEmail" class="h5 text-nowrap ml-3 mr-3">@Localizer["about_CV_language"]</label>
+                        @if (@regionInfo.TwoLetterISORegionName == "US")
+                        {
+                            <select name="language" class="form-control form-control-sm">
+                                <option>EN</option>
+                                <option>PL</option>
+                            </select>
+                        }
+                        else
+                        {
+                            <select name="language" class="form-control form-control-sm">
+                                <option>PL</option>
+                                <option>EN</option>
+                            </select>
+                        }
+                        <button type="submit" class="btn btn-dark btn ml-1" style="transform:scale(0.8, 0.8);">@Localizer["about_button_download"]</button>
 
-<div id="about_text_row" class="row align-items-center">
-    <div id="about_text_col" class="col box-shadow">
-        <p id="about_text">
-            Jestem początkującym programistą samoukiem z dużym zapałem do poszerzania swojej wiedzy oraz umiejętności w każdej dziedzinie informatyki,
-            zwłaszcza związanej z tworzeniem oprogramowania.
-        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col" id="about_image_col">
+            <img src="~/Content/About/Images/ja.png" class="d-block img-fluid" />
+        </div>
     </div>
-    <div class="col" id="about_image_col">
-        <img src="~/Content/About/Images/ja.jpg" style="height:500px;"/>
-    </div>
-</div>
+
+}
 

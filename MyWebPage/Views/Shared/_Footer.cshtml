@@ -1,5 +1,21 @@
-﻿<footer class="border-top footer text-muted">
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@inject Wangkanai.Detection.Services.IDetectionService DetectionService
+
+<footer class="footer text-muted box-shadow">
     <div class="container">
-        &copy; 2021 - MyWebPage - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        @if (DetectionService.Device.Type != Wangkanai.Detection.Models.Device.Desktop)
+        {
+            <p class="text-wrap text-center" style="line-height: 25px; font-size: 12px;">
+                &copy; @DateTime.Now.Year - @Localizer["footer_text"]
+            </p>
+        }
+        else
+        {
+            <div>&copy; @DateTime.Now.Year - @Localizer["footer_text"]</div>
+        }
+
     </div>
+
 </footer>

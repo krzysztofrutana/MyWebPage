@@ -3,14 +3,20 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>412e265c-7686-4cd6-936b-81307fa592ff</UserSecretsId>
+    <NeutralLanguage>pl</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\Content\Projects\OCR_read_and_translate\Main-Window.jpg" />
+    <Content Remove="wwwroot\favicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Content\Projects\OCR_read_and_translate\Main-Window.jpg" />
+    <EmbeddedResource Include="wwwroot\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\lib\waypoints\.eslintrc" />
     <None Include="wwwroot\lib\waypoints\.gitignore" />
     <None Include="wwwroot\lib\waypoints\.travis.yml" />
@@ -75,12 +81,16 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="MimeTypeMapOfficial" Version="1.0.14" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0-alpha.2" />
+    <PackageReference Include="Wangkanai.Detection" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Content\About\Images\" />
-    <Folder Include="wwwroot\Content\Projects\Diploma_program\" />
-    <Folder Include="wwwroot\Files\" />
+    <Folder Include="Utilis\" />
+    <Folder Include="wwwroot\Content\Projects\Asystent_wokalisty\Files\" />
+    <Folder Include="wwwroot\Content\Projects\Diploma\Files\" />
+    <Folder Include="wwwroot\Content\Projects\OCR_read_and_translate\Files\" />
+    <Folder Include="wwwroot\Content\Projects\Przypominajka\Files\" />
   </ItemGroup>
 
 </Project>

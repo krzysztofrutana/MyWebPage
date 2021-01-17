@@ -1,81 +1,243 @@
 ﻿@model IEnumerable<MyWebPage.Models.Project>
 
-<link rel="stylesheet" href="~/css/list.css" />
+@using Microsoft.AspNetCore.Mvc.Localization
+@using System.Globalization
+
+@inject IViewLocalizer Localizer
+@inject Wangkanai.Detection.Services.IDetectionService DetectionService
 
 @{
-    ViewData["Title"] = "Projects";
-    Layout = null;
+    var requestCulture = CultureInfo.CurrentCulture;
+    var regionInfo = new RegionInfo(requestCulture.Name);
 }
 
+<link rel="stylesheet" href="~/css/list.css" />
 
-@{ Boolean side = false;
-    int i = 0;}
-@foreach (Project project in Model)
+@if (DetectionService.Device.Type != Wangkanai.Detection.Models.Device.Desktop )
 {
-    @if (side)
-    {
-        <div class="row align-items-center row_project box-shadow" id="row_project_@i">
-            <div class="col-4">
-                <img src="@Url.Content(project.LogoPath)" alt="@project.Name" style="height: 150px;" class="d-block mx-auto">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-white display-3 text-center title">@Localizer["my_projects"]</h1>
+        </div>
+    </div>
+    <div class="row">
+        @{int i = 0;}
+        @foreach (Project project in Model)
+        {
+            <div class="row row_project mobile box-shadow" id="row_project_@i">
+                <div class="col text-center">
+                    <div class="row row_project_name">
+                        <div class="col text-center">
+                            @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
+                            {
+                            <h3>@project.NamePL</h3>
+                            }
+                            else
+                            {
+                        <h3>@project.NameENG</h3>
+                            }
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col justify-content-center project_logo_mobile">
+                            <img src="@Url.Content(project.LogoPath)" alt="@project.NamePL" class="d-block mx-auto img-fluid">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="text-justify">
+                            @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
+                            {
+                                @Html.Raw(project.ShortDiscriptionPL);
+                            }
+                            else
+                            {
+                                @Html.Raw(project.ShortDiscriptionENG);
+                            }
+                        </p>
+                    </div>
+                    @if (project.ItsWebPage)
+                    {
+                        <div class="row row_project_buttons_mobile">
+                            <div class="col">
+                                <div class="row project_button ">
+                                    <div class="col mx-auto">
+                                        <a class="btn btn-dark" href="@project.SourceLink" role="button">@Localizer["go_to_webpage"]</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row row_project_buttons_mobile">
+                            <div class="col">
+                                <div class="row project_button">
+                                    <div class="col mx-auto">
+                                        <a href="#div_project_@i" class="btn btn-light" data-toggle="collapse">@Localizer["details"]</a>
+                                    </div>
+                                </div>
+                                <div class="row project_button ">
+                                    <div class="col mx-auto">
+                                        <button type="button" class="btn btn-dark">@Localizer["download_last_version"]</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                @if (!project.ItsWebPage)
+                {
+                    <div class="row">
+                        <div id="div_project_@i" class="collapse project_detail_list_show_mobile">
+                            @await Component.InvokeAsync("Detail", project)
+                        </div>
+                    </div>
+                }
             </div>
 
-            <div class="col">
-                <div class="row" id="row_project_name">
-                    <a href="">
-                        <h2 style="margin-bottom: 25px;">@project.Name</h2>
-                    </a>
-                </div>
-                <div class="row">
-                    <p class="text-justify">@project.ShortDiscriptionPL</p>
-                </div>
-                <div class="row ml-auto" id="row_project_buttons">
-                    <div class="col text-right">
-                        <a href="#div_project_@i" class="btn btn-light" data-toggle="collapse">Szczegóły</a>
-                        <button type="button" class="btn btn-dark">Pobierz ostatnią wersję</button>
+            i++;
+        }
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col">
+            <h1 class="text-white display-1 text-center title mt-4 mb-5">@Localizer["my_projects"]</h1>
+        </div>
+    </div>
+    <div class="row">
+        @{ Boolean side = false;
+            int i = 0;}
+        @foreach (Project project in Model)
+        {
+            @if (side)
+            {
+                <div class="row align-items-center row_project box-shadow" id="row_project_@i">
+                    <div class="col-4">
+                        <img src="@Url.Content(project.LogoPath)" alt="@project.NamePL" class="d-block mx-auto img-fluid">
+                    </div>
+
+                    <div class="col mr-3">
+                        <div class="row" id="row_project_name">
+                            @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
+                            {
+                                 <h2 style="margin-bottom: 25px;">@project.NamePL</h2>
+                            }
+                            else
+                            {
+                                <h2 style="margin-bottom: 25px;">@project.NameENG</h2>
+                            }
+                            
+                        </div>
+                        <div class="row">
+                            <p class="text-justify">
+                                @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
+                                {
+                                    @Html.Raw(project.ShortDiscriptionPL);
+                                }
+                                else
+                                {
+                                    @Html.Raw(project.ShortDiscriptionENG);
+                                }
+                            </p>
+                        </div>
+                        @if (project.ItsWebPage)
+                        {
+                            <div class="row ml-auto" id="row_project_buttons">
+                                <div class="col text-right">
+                                    <a target="_blank" rel="noopener noreferrer" class="btn btn-dark" href="@project.SourceLink" role="button">@Localizer["go_to_webpage"]</a>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row ml-auto" id="row_project_buttons">
+                                <div class="col text-right">
+                                    <a href="#div_project_@i" class="btn btn-light" data-toggle="collapse">@Localizer["details"]</a>
+                                    <button type="button" class="btn btn-dark">@Localizer["download_last_version"]</button>
+                                </div>
+                            </div>
+                        }
+
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row w-100">
-                <div id="div_project_@i" class="collapse w-100">
-                    @await Component.InvokeAsync("Detail", project)
-                </div>
-        </div>
+                @if (!project.ItsWebPage)
+                {
+                    <div class="row">
+                        <div id="div_project_@i" class="collapse project_detail_list_show">
+                            @await Component.InvokeAsync("Detail", project)
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="row align-items-center row_project box-shadow" id="row_project_@i">
+                    <div class="col ml-3">
+                        <div class="row" id="row_project_name">
+                            @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
+                            {
+                                <h2 style="margin-bottom: 25px;">@project.NamePL</h2>
+                            }
+                            else
+                            {
+                                <h2 style="margin-bottom: 25px;">@project.NameENG</h2>
+                            }
+                        </div>
 
-    }
-    else
-    {
-        <div class="row align-items-center row_project box-shadow" id="row_project_@i">
-            <div class="col">
-                <div class="row" id="row_project_name">
-                    <a href="">
-                        <h2 style="margin-bottom: 25px;">@project.Name</h2>
-                    </a>
-                </div>
+                        <div class="row">
+                            <p class="text-justify">
+                                @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
+                                {
+                                    @Html.Raw(project.ShortDiscriptionPL);
+                                }
+                                else
+                                {
+                                    @Html.Raw(project.ShortDiscriptionENG);
+                                }
+                            </p>
+                        </div>
+                        @if (project.ItsWebPage)
+                        {
+                            <div class="row  ml-auto" id="row_project_buttons">
+                                <div class="col text-right">
+                                    <a target="_blank" rel="noopener noreferrer" class="btn btn-dark" href="@project.SourceLink" role="button">@Localizer["go_to_webpage"]</a>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row  ml-auto" id="row_project_buttons">
+                                <div class="col text-right">
+                                    <a href="#div_project_@i" class="btn btn-light" data-toggle="collapse">@Localizer["details"]</a>
+                                    <button type="button" class="btn btn-dark">@Localizer["download_last_version"]</button>
+                                </div>
+                            </div>
+                        }
 
-                <div class="row">
-                    <p class="text-justify">@project.ShortDiscriptionPL</p>
-                </div>
-                <div class="row  ml-auto" id="row_project_buttons">
-                    <div class="col text-right">
-                        <a href="#div_project_@i" class="btn btn-light" data-toggle="collapse">Szczegóły</a>
-                        <button type="button" class="btn btn-dark">Pobierz ostatnią wersję</button>
+                    </div>
+
+                    <div class="col-4">
+                        <img src="@Url.Content(project.LogoPath)" alt="@project.NamePL" class="d-block mx-auto img-fluid">
                     </div>
                 </div>
-            </div>
+                @if (!project.ItsWebPage)
+                {
+                    <div class="row">
+                        <div id="div_project_@i" class="collapse project_detail_list_show">
+                            @await Component.InvokeAsync("Detail", project)
+                        </div>
+                    </div>
+                }
 
-            <div class="col-4">
-                <img src="@Url.Content(project.LogoPath)" alt="@project.Name" style="height: 150px;" class="d-block mx-auto">
-            </div>
-        </div>
-        <div class="row w-100">
-            <div id="div_project_@i" class="collapse w-100">
-                @await Component.InvokeAsync("Detail", project)
-            </div>
-        </div>
-    }
-    i++;
-    side = !side;
+            }
+            i++;
+            side = !side;
+        }
+    </div>
 }
 
 

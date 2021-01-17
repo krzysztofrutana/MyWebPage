@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="about_button_download" xml:space="preserve">
+    <value>Pobierz CV</value>
+  </data>
+  <data name="about_CV_language" xml:space="preserve">
+    <value>Wybierz język CV:</value>
+  </data>
+  <data name="about_text" xml:space="preserve">
+    <value>Jest&amp;shy;em ab&amp;shy;sol&amp;shy;wen&amp;shy;tem stu&amp;shy;diów wyż&amp;shy;szych na kie&amp;shy;run&amp;shy;ku inf&amp;shy;or&amp;shy;ma&amp;shy;ty&amp;shy;ka, który w pro&amp;shy;gra&amp;shy;mo&amp;shy;wa&amp;shy;niu od&amp;shy;na&amp;shy;lazł swo&amp;shy;ją pa&amp;shy;sję i kie&amp;shy;ru&amp;shy;nek da&amp;shy;lsze&amp;shy;go ro&amp;shy;zwo&amp;shy;ju za&amp;shy;wo&amp;shy;do&amp;shy;we&amp;shy;go. Sta&amp;shy;ram się cze&amp;shy;rpać wie&amp;shy;dzę z każ&amp;shy;dej dzie&amp;shy;dzi&amp;shy;ny in&amp;shy;fo&amp;shy;rma&amp;shy;ty&amp;shy;ki oraz pro&amp;shy;gra&amp;shy;mo&amp;shy;wa&amp;shy;nia, dla&amp;shy;te&amp;shy;go nie ogra&amp;shy;ni&amp;shy;czam się do je&amp;shy;dnej te&amp;shy;chno&amp;shy;lo&amp;shy;gii. In&amp;shy;te&amp;shy;re&amp;shy;su&amp;shy;je mnie bu&amp;shy;do&amp;shy;wa i two&amp;shy;rze&amp;shy;nie apli&amp;shy;ka&amp;shy;cji de&amp;shy;skto&amp;shy;po&amp;shy;wych oraz mo&amp;shy;bil&amp;shy;nych, choć two&amp;shy;rze&amp;shy;nie pro&amp;shy;stych stron w ASP.Net lub Word&amp;shy;press rów&amp;shy;nież nie jest mi ob&amp;shy;ce. Po&amp;shy;ni&amp;shy;żej pre&amp;shy;zen&amp;shy;tu&amp;shy;ję mo&amp;shy;je do&amp;shy;tych&amp;shy;cza&amp;shy;so&amp;shy;we pro&amp;shy;je&amp;shy;kty.</value>
+  </data>
+  <data name="about_title" xml:space="preserve">
+    <value>O mnie</value>
+  </data>
+</root>
