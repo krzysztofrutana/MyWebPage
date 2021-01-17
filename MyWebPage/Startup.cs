@@ -18,9 +18,20 @@ using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using MyWebPage.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using MyWebPage.Models;
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Localization.Routing;
 
 namespace MyWebPage
 {
+    /// <summary>
+    /// Thanks for bonioloa fot his route localization solution for .net core 3
+    /// Link to project: https://github.com/bonioloa/Core3LocalizationAndRouteTranslation
+    /// </summary>
     public class Startup
     {
         private readonly IWebHostEnvironment _env;
@@ -36,8 +47,37 @@ namespace MyWebPage
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProjectsDatabaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddRouting();
+            services.AddSession();
+            // Add detection services container and device resolver service.
+            services.AddDetection();
+
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Latest)
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            // Configure supported cultures and localization options
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("pl-PL"),
+                    new CultureInfo("en-US"),
+                    
+                };
+                options.DefaultRequestCulture = new RequestCulture(culture: "pl-PL", uiCulture: "pl-PL");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+                options.RequestCultureProviders = new List<IRequestCultureProvider>
+                {
+                    new RouteDataRequestCultureProvider(),
+                    new CookieRequestCultureProvider()
+                };
+            });
+            string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContextPool<ProjectsDatabaseContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
             services.AddTransient<IProjectRepository, ProjectRepository>();
             services.AddTransient<IEmailSender, SendMail>();
@@ -58,18 +98,23 @@ namespace MyWebPage
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+            app.UseRequestLocalization(options.Value);
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseDetection();
 
             app.UseRouting();
+            app.UseStaticFiles();
 
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}");
+                    pattern: "{culture=pl-PL}/{controller=home}/{action=index}");
+
             });
         }
     }

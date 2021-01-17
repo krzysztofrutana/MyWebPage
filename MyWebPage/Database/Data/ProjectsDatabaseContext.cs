@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using MyWebPage.Models;
 using System;
 
@@ -8,17 +9,8 @@ namespace MyWebPage.Data
     {
         public DbSet<Project> Projects { get; set; }
 
-        public ProjectsDatabaseContext() { }
         public ProjectsDatabaseContext(DbContextOptions<ProjectsDatabaseContext> options) : base(options)
         {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Name=DefaultConnection");
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
