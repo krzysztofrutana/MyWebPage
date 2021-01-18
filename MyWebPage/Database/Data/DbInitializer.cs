@@ -69,6 +69,7 @@ namespace MyWebPage.Data
                     "~/Content/Projects/Diploma/Screenshots/4.jpg",
                     "~/Content/Projects/Diploma/Screenshots/5.jpg"
                 }
+                
             },
 
             new Project(){
@@ -98,13 +99,16 @@ namespace MyWebPage.Data
                 License = "GNU GPL",
                 SourceLink = "https://github.com/krzysztofrutana/OCR-Desktop",
                 Platform = "Windows",
-                FilePath = "",
+                FilePath = "Content/Projects/OCR_read_and_translate/Files/OCR_Read_and_Translate_beta.zip",
                 ScreenshotPaths = new List<string>()
                 {
                     "~/Content/Projects/OCR_read_and_translate/Screenshots/1.jpg",
                     "~/Content/Projects/OCR_read_and_translate/Screenshots/2.jpg",
                     "~/Content/Projects/OCR_read_and_translate/Screenshots/3.jpg"
-                }
+                },
+                ItsDesktopApp = true,
+                RequirementsPL = "Program Google Tesseract zainstalowany w domyślnym folderze, link: <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://tesseract-ocr.github.io/tessdoc/Home.html\">Google Tesseract</a>",
+                RequirementsENG = "Google Tesseract program installed in default folder, link: <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://tesseract-ocr.github.io/tessdoc/Home.html\">Google Tesseract</a>"
             },
 
             new Project(){
@@ -155,7 +159,7 @@ namespace MyWebPage.Data
                 License = "Adware",
                 SourceLink = "https://github.com/krzysztofrutana/Przypominajka",
                 Platform = "Android",
-                FilePath = "",
+                FilePath = "Content/Projects/Przypominajka/Files/przypominajka-unsigned-beta.apk",
                 ScreenshotPaths = new List<string>()
                 {
                      "~/Content/Projects/Przypominajka/Screenshots/1.png",
@@ -217,7 +221,7 @@ namespace MyWebPage.Data
                 License = "Adware",
                 SourceLink = "https://github.com/krzysztofrutana/Show-song-text",
                 Platform = "Android",
-                FilePath = "",
+                FilePath = "Content/Projects/Asystent_wokalisty/Files/pomocnik_wokalisty_beta.apk",
                 ScreenshotPaths = new List<string>()
                 {
                     "~/Content/Projects/Asystent_wokalisty/Screenshots/1.png",

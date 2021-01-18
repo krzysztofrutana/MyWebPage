@@ -129,6 +129,9 @@
   <data name="platform" xml:space="preserve">
     <value>Platform:</value>
   </data>
+  <data name="requirements" xml:space="preserve">
+    <value>Requirements:</value>
+  </data>
   <data name="source_link" xml:space="preserve">
     <value>Link to sources:</value>
   </data>

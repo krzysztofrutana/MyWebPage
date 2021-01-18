@@ -82,7 +82,7 @@ namespace MyWebPage
             services.AddTransient<IProjectRepository, ProjectRepository>();
             services.AddTransient<IEmailSender, SendMail>();
             services.AddTransient<FileService>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

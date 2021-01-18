@@ -25,6 +25,10 @@ namespace MyWebPage.Models
         public String DiscriptionPL { get; set; }
         [Column("DiscriptionENG")]
         public String DiscriptionENG { get; set; }
+        [Column("RequirementsPL")]
+        public String RequirementsPL { get; set; }
+        [Column("RequirementsENG")]
+        public String RequirementsENG { get; set; }
         [Column("Technologies")]
         public String Technologies { get; set; }
         [Column("License")]
@@ -37,6 +41,8 @@ namespace MyWebPage.Models
         public String FilePath { get; set; }
         [Column("Screenshot")]
         public String Screenshot { get; set; }
+        [Column("ItsDesktopApp")]
+        public Boolean ItsDesktopApp { get; set; }
         [Column("ItsWebPage")]
         public Boolean ItsWebPage { get; set; }
 

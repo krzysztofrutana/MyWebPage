@@ -68,6 +68,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.1">
@@ -87,10 +88,7 @@
 
   <ItemGroup>
     <Folder Include="Utilis\" />
-    <Folder Include="wwwroot\Content\Projects\Asystent_wokalisty\Files\" />
     <Folder Include="wwwroot\Content\Projects\Diploma\Files\" />
-    <Folder Include="wwwroot\Content\Projects\OCR_read_and_translate\Files\" />
-    <Folder Include="wwwroot\Content\Projects\Przypominajka\Files\" />
   </ItemGroup>
 
 </Project>

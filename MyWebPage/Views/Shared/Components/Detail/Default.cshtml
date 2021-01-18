@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using System.Globalization
+@using System.IO
 
 @inject IViewLocalizer Localizer
 @inject Wangkanai.Detection.Services.IDetectionService DetectionService
@@ -11,152 +12,180 @@
     var regionInfo = new RegionInfo(requestCulture.Name);
 }
 
-<link rel="stylesheet" href="~/css/detail.css" />
+<link rel="stylesheet" href="~/css/detail.css?v=2" />
 
 @if (DetectionService.Device.Type != Wangkanai.Detection.Models.Device.Desktop)
 {
-<div class="container-fluid p-0 project_detail_page_mobile">
-    <div class="row">
-        <div class="col center-block text-left project_detail_mobile">
-            <dl>
-                <dt><h5>@Localizer["technologies"]</h5></dt>
-                <dd>@Model.Technologies</dd>
-                <dt><h5>@Localizer["license"]</h5></dt>
-                <dd>@Model.License</dd>
-                <dt><h5>@Localizer["source_link"]</h5></dt>
-                <dd><a target="_blank" rel="noopener noreferrer" href="@Model.SourceLink">Github</a></dd>
-                <dt><h5>@Localizer["platform"]</h5></dt>
-                <dd>@Model.Platform</dd>
-                <dt><h5>@Localizer["download_link:"]</h5></dt>
-                @if (Model.FilePath.Equals(""))
-                {
-                    <dd>@Localizer["no_files"]</dd>
-                }
-                else
-                {
-                    <dd><a asp-controller="Projects" asp-action="Get" asp-route-filePath="@Model.FilePath"> @Model.FilePath </a> </dd>
-                }
-            </dl>
-        </div>
-    </div>
-    <div class="row align-items-center">
-        <div class="col text-center m-3">
-            <div id="gallery_@Model.Id" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    @{int i = 0;}
-                    @foreach (String imagePath in Model.ScreenshotPaths)
-                {
-                    <li data-target="#gallery_@Model.Id" data-slide-to="@i" class="@(i == 0 ? "active" : "") "></li>
-                    i++;
-                }
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                    @{ int j = 0;}
-                    @foreach (String imagePath in Model.ScreenshotPaths)
-                {
-                    <div class="carousel-item @(j == 0 ? "active" : "")">
-                        <img class="d-block img-fluid" src="@Url.Content(@imagePath)">
-                    </div>
-                    j++;
-                }
-                </div>
-
-                <!-- Controls -->
-                <a class="carousel-control-prev" href="#gallery_@Model.Id" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </a>
-                <a class="carousel-control-next" href="#gallery_@Model.Id" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col" id="project_discription_mobile">
-            @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
-            {
-            @Html.Raw(@Model.DiscriptionPL);
-            }
-            else
-            {
-            @Html.Raw(@Model.DiscriptionENG);
-            }
-        </div>
-    </div>
-</div>
-}
-else
-{
-<div class="container-fluid project_detail_page">
-    <div class="row align-items-center">
-        <div class="col align-items-center" id="project_details">
-            <dl>
-                <dt><h5>@Localizer["technologies"]</h5></dt>
-                <dd>@Model.Technologies</dd>
-                <dt><h5>@Localizer["license"]</h5></dt>
-                <dd>@Model.License</dd>
-                <dt><h5>@Localizer["source_link"]</h5></dt>
-                <dd><a target="_blank" rel="noopener noreferrer" href="@Model.SourceLink">Github</a></dd>
-                <dt><h5>@Localizer["platform"]</h5></dt>
-                <dd>@Model.Platform</dd>
-                <dt><h5>@Localizer["download_link:"]</h5></dt>
-                @if (Model.FilePath.Equals(""))
+    <div class="container-fluid p-0 project_detail_page_mobile">
+        <div class="row">
+            <div class="col center-block text-left project_detail_mobile">
+                <dl>
+                    <dt><h5>@Localizer["technologies"]</h5></dt>
+                    <dd>@Model.Technologies</dd>
+                    <dt><h5>@Localizer["license"]</h5></dt>
+                    <dd>@Model.License</dd>
+                    <dt><h5>@Localizer["source_link"]</h5></dt>
+                    <dd><a target="_blank" rel="noopener noreferrer" href="@Model.SourceLink">Github</a></dd>
+                    <dt><h5>@Localizer["platform"]</h5></dt>
+                    <dd>@Model.Platform</dd>
+                    @if (!Model.FilePath.Equals("") && Model.ItsDesktopApp)
                     {
-                <dd>@Localizer["no_files"]</dd>
+                        <dt><h5>@Localizer["requirements"]</h5></dt>
+                        <dd>
+                            @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
+                            {
+                                @Html.Raw(@Model.RequirementsPL);
+                            }
+                            else
+                            {
+                                @Html.Raw(@Model.RequirementsENG);
+                            }
+                        </dd>
+                    }
+                    <dt><h5>@Localizer["download_link:"]</h5></dt>
+                    @if (Model.FilePath.Equals(""))
+                    {
+                        <dd>@Localizer["no_files"]</dd>
                     }
                     else
                     {
-                <dd><a asp-controller="Projects" asp-action="Get" asp-route-filePath="@Model.FilePath"> @Model.FilePath </a> </dd>
+                        <dd><a asp-controller="Projects" asp-action="Get" asp-route-filePath="@Model.FilePath"> @System.IO.Path.GetFileName(Model.FilePath) </a> </dd>
                     }
-            </dl>
-        </div>
-        <div class="col-7">
-            <div id="gallery_@Model.Id" class="carousel slide gallery" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    @{int i = 0;}
-                    @foreach (String imagePath in Model.ScreenshotPaths)
-                        {
-                    <li data-target="#gallery_@Model.Id" data-slide-to="@i" class="@(i == 0 ? "active" : "") "></li>
-                            i++;
-                        }
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                    @{ int j = 0;}
-                    @foreach (String imagePath in Model.ScreenshotPaths)
-                        {
-                    <div class="carousel-item @(j == 0 ? "active" : "")">
-                        <img class="d-block img-fluid" src="@Url.Content(@imagePath)">
-                    </div>
-                            j++;
-                        }
-                </div>
-
-                <!-- Controls -->
-                <a class="carousel-control-prev" href="#gallery_@Model.Id" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </a>
-                <a class="carousel-control-next" href="#gallery_@Model.Id" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </a>
+                </dl>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col project_discription">
-            @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
+        <div class="row align-items-center">
+            <div class="col text-center m-3">
+                <div id="gallery_@Model.Id" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        @{int i = 0;}
+                        @foreach (String imagePath in Model.ScreenshotPaths)
+                        {
+                            <li data-target="#gallery_@Model.Id" data-slide-to="@i" class="@(i == 0 ? "active" : "") "></li>
+                            i++;
+                        }
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        @{ int j = 0;}
+                        @foreach (String imagePath in Model.ScreenshotPaths)
+                        {
+                            <div class="carousel-item @(j == 0 ? "active" : "")">
+                                <img class="d-block img-fluid" src="@Url.Content(@imagePath)">
+                            </div>
+                            j++;
+                        }
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="carousel-control-prev" href="#gallery_@Model.Id" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#gallery_@Model.Id" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col" id="project_discription_mobile">
+                @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
                 {
-            @Html.Raw(@Model.DiscriptionPL);
+                    @Html.Raw(@Model.DiscriptionPL);
                 }
                 else
                 {
-            @Html.Raw(@Model.DiscriptionENG);
+                    @Html.Raw(@Model.DiscriptionENG);
                 }
+            </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="container-fluid project_detail_page">
+        <div class="row align-items-center">
+            <div class="col align-items-center" id="project_details">
+                <dl>
+                    <dt><h5>@Localizer["technologies"]</h5></dt>
+                    <dd>@Model.Technologies</dd>
+                    <dt><h5>@Localizer["license"]</h5></dt>
+                    <dd>@Model.License</dd>
+                    <dt><h5>@Localizer["source_link"]</h5></dt>
+                    <dd><a target="_blank" rel="noopener noreferrer" href="@Model.SourceLink">Github</a></dd>
+                    <dt><h5>@Localizer["platform"]</h5></dt>
+                    <dd>@Model.Platform</dd>
+                    @if (!Model.FilePath.Equals("") && Model.ItsDesktopApp)
+                    {
+                        <dt><h5>@Localizer["requirements"]</h5></dt>
+                        <dd>
+                            @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
+                            {
+                                @Html.Raw(@Model.RequirementsPL);
+                            }
+                            else
+                            {
+                                @Html.Raw(@Model.RequirementsENG);
+                            }
+                        </dd>
+                    }
+                    <dt><h5>@Localizer["download_link:"]</h5></dt>
+                    @if (Model.FilePath.Equals(""))
+                    {
+                        <dd>@Localizer["no_files"]</dd>
+                    }
+                    else
+                    {
+                        <dd><a asp-controller="Projects" asp-action="Get" asp-route-filePath="@Model.FilePath"> @System.IO.Path.GetFileName(Model.FilePath) </a> </dd>
+                    }
+                </dl>
+            </div>
+            <div class="col-7">
+                <div id="gallery_@Model.Id" class="carousel slide gallery" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        @{int i = 0;}
+                        @foreach (String imagePath in Model.ScreenshotPaths)
+                        {
+                            <li data-target="#gallery_@Model.Id" data-slide-to="@i" class="@(i == 0 ? "active" : "") "></li>
+                            i++;
+                        }
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        @{ int j = 0;}
+                        @foreach (String imagePath in Model.ScreenshotPaths)
+                        {
+                            <div class="carousel-item @(j == 0 ? "active" : "")">
+                                <img class="d-block img-fluid" src="@Url.Content(@imagePath)">
+                            </div>
+                            j++;
+                        }
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="carousel-control-prev" href="#gallery_@Model.Id" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#gallery_@Model.Id" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col project_discription">
+                @if (regionInfo.TwoLetterISORegionName.Equals("PL"))
+                {
+                    @Html.Raw(@Model.DiscriptionPL);
+                }
+                else
+                {
+                    @Html.Raw(@Model.DiscriptionENG);
+                }
+            </div>
+        </div>
+    </div>
 }
