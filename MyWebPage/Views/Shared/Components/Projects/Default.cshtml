@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="row project_button ">
                                     <div class="col mx-auto">
-                                        <button type="button" class="btn btn-dark">@Localizer["download_last_version"]</button>
+                                        <a role="button" class="btn btn-dark" asp-controller="Projects" asp-action="Get" asp-route-filePath="@project.FilePath">@Localizer["download_last_version"]</a>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@ else
                             <div class="row ml-auto" id="row_project_buttons">
                                 <div class="col text-right">
                                     <a href="#div_project_@i" class="btn btn-light" data-toggle="collapse">@Localizer["details"]</a>
-                                    <button type="button" class="btn btn-dark">@Localizer["download_last_version"]</button>
+                                    <a role="button" class="btn btn-dark" asp-controller="Projects" asp-action="Get" asp-route-filePath="@project.FilePath">@Localizer["download_last_version"]</a>
                                 </div>
                             </div>
                         }
@@ -213,7 +213,7 @@ else
                             <div class="row  ml-auto" id="row_project_buttons">
                                 <div class="col text-right">
                                     <a href="#div_project_@i" class="btn btn-light" data-toggle="collapse">@Localizer["details"]</a>
-                                    <button type="button" class="btn btn-dark">@Localizer["download_last_version"]</button>
+                                    <a role="button" class="btn btn-dark" asp-controller="Projects" asp-action="Get" asp-route-filePath="@project.FilePath">@Localizer["download_last_version"]</a>
                                 </div>
                             </div>
                         }
